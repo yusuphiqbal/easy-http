@@ -14,3 +14,13 @@ EasyHTTP.prototype.get = function (url, callback) {
   }
   this.http.send();
 }
+
+EasyHTTP.prototype.post = function (url, data, callback) {
+  this.http.open('POST', url, true);
+  this.http.setRequestHeader('Content-type', 'Application/json');
+  let self = this;
+  this.http.onload = function () {
+    callback(null, self.http.responseText);
+  };
+  this.http.send(JSON.stringify(data));
+}
